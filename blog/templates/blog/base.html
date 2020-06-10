@@ -25,6 +25,8 @@
         {% for post in popular_posts %}
             <p>{{post.title}} with {{post.comments_count}} comments.</p>
         {% endfor %}
+
+        <h2><a href="{% url 'blog:search' %}">Search for a post</a></h2>
     </div>
 </body>
 </html>

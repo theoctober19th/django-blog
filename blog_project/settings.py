@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.sitemaps',
+    'django.contrib.postgres',
     'taggit'
 ]
 
@@ -77,10 +78,21 @@ WSGI_APPLICATION = 'blog_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+# For SQLite
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+# For PostgreSQL
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'djangoblog',
+        'USER': 'bloguser',
+        'PASSWORD': 'bloguser'  # your password here. this is just a dummy password
     }
 }
 
@@ -128,7 +140,7 @@ STATIC_URL = '/static/'
 
 # FOR GMAIL
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'bikalpacodes@gmail.com'
-EMAIL_HOST_PASSWORD = 'yourpasswordgoeshere'
+EMAIL_HOST_USER = 'bikalpacodes@gmail.com'  # put your email here
+EMAIL_HOST_PASSWORD = 'yourpasswordgoeshere'  # put your actual password here.
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

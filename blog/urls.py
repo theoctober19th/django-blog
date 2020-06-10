@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import post_list, post_detail, post_share
+from .views import post_list, post_detail, post_share, post_search
 from .views import PostListView
 from django.contrib.sitemaps.views import sitemap
 from .sitemaps import PostSitemap
@@ -15,7 +15,7 @@ post_feed = CheckLatestPosts()
 
 urlpatterns = [
     path('', post_list, name='post_list'),
-    path('/tag/<slug:tag_slug>/', post_list, name='post_list_with_tag'),
+    path('tag/<slug:tag_slug>/', post_list, name='post_list_with_tag'),
     # path('', PostListView.as_view(), name='post_list'),
     path('<int:year>/<int:month>/<int:day>/<slug:slug>',
          post_detail, name='detail'),
@@ -23,4 +23,5 @@ urlpatterns = [
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),
     path('feed/', post_feed, name='post_feed'),
+    path('search/', post_search, name='search')
 ]
