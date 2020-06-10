@@ -1,12 +1,50 @@
 {% extends 'blog/base.html' %}
+{% load blog_tags %}
 
 {% block title %}
 {{post.title}}
 {% endblock title %}
 
 {% block content %}
-<a href="{% url 'blog:list' %}">Go Back</a>
+<a href="{% url 'blog:post_list' %}">Go Back</a>
     <h2> {{post.title}} </h2>
     <p class="date">Published {{post.publish}} by {{post.author}} </p>
-    {{post.body|linebreaks}}
+    {{post.body|markdown}}
+    <p>
+    <a href="{% url 'blog:post_share' post.id %}">Share this post</a>
+    </p>
+
+    <h2>Similar Posts</h2>
+    {% for post in similar_posts %}
+        <p><a href="{{post.get_absolute_url}}">{{post.title}}</a></p>
+    {% empty %}
+        <p>No similar posts for this post.</p>
+    {% endfor %}
+
+    {% with comments.count as num_comments %}
+        <h2>{{num_comments}} Comment{{num_comments|pluralize}}</h2>
+    {% endwith %}
+
+    {% for comment in comments %}
+        <div class="comment">
+        <p class="info">
+            Comment {{forloop.counter}} by {{comment.name}}
+        </p>
+        {{comment.body|linebreaks}}
+        </div>
+        {%empty%}
+        <p>There are no comments yet.</p>
+    {% endfor %}
+
+    {% if new_comment %}
+        <h2>Your comment has been added.</h2>
+        {% else %}
+        <h2>Add a new comment</h2>
+        <form action="" method="post">
+            {{comment_form.as_p}}
+            {% csrf_token %}
+            <p><input type="submit" value="Add Comment"></p>
+        </form>
+    {% endif %}
+
 {% endblock content %}

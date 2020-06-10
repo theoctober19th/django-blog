@@ -1,4 +1,5 @@
 {% load static %}
+{% load blog_tags %}
 <html>
 <head>
     <title>{%block title%} {% endblock %}</title>
@@ -13,6 +14,17 @@
     <div id="sidebar">
         <h2>My blog</h2>
             <p>This is my blog</p>
+            <p>There are {% total_count %} posts in this blog. </p>
+            <a href="{% url 'blog:post_feed' %}">Subscribe to RSS Feed</a>
+
+        <h2>Latest Posts</h2>
+        {% show_latest_posts %}
+
+        <h2>Most Commented Posts</h2>
+        {% get_most_commented_posts as popular_posts %}
+        {% for post in popular_posts %}
+            <p>{{post.title}} with {{post.comments_count}} comments.</p>
+        {% endfor %}
     </div>
 </body>
 </html>
