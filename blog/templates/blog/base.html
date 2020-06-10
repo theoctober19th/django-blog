@@ -13,6 +13,7 @@
     </div>
     <div id="sidebar">
         <h2>My blog</h2>
+        <h5><a href="{% url 'blog:post_list' %}">Go to Home</a></h5
             <p>This is my blog</p>
             <p>There are {% total_count %} posts in this blog. </p>
             <a href="{% url 'blog:post_feed' %}">Subscribe to RSS Feed</a>
